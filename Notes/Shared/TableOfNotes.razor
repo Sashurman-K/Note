@@ -1,0 +1,72 @@
+﻿   <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Is Done</th>
+                        <th scope="col">Category</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                @if(notes == null)
+                {
+                    <div>
+                        Loding...
+                    </div>
+                }
+                else
+                    {
+                     @foreach (var item in notes.OrderBy(item => item.TimeToDo))
+                          {
+                                    <tbody>
+                                        <tr class="@(item.IsDone ? "table-success" : "table-white")">
+                                            <td>
+
+                                                <details>
+                                                    <summary>
+                                                        @item.Title
+                                                    </summary>
+                                                    @if (!string.IsNullOrEmpty(item.Text))
+                                                    {
+                                                        <p>@item.Text</p>
+                                                    }
+
+                                                </details>
+                                                @if (!item.IsDone)
+                                                {
+                                                    <div class="@ConvertTime.StyleTime(item.TimeToDo)">
+
+                                                        @ConvertTime.TimeLeft(item.TimeToDo)
+
+                                                    </div>
+                                                }
+
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" @bind="@item.IsDone" />
+                                            </td>
+                                            <td>
+                                                @item.TypeOfTodo
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-danger" @onclick="(() => DeleteTodo(item))">Delete</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+        }
+               
+                }
+            </table>
+
+           
+@code {
+    [Parameter] public List<NoteItem> notes { get; set; }
+
+
+
+   
+    private void DeleteTodo(NoteItem deletedItem)
+    {
+        notes.Remove(deletedItem);
+    }
+
+}

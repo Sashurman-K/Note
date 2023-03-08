@@ -1,0 +1,41 @@
+﻿@page "/"
+
+
+<TableOfNotes notes="notes" />
+<NewNote/>
+
+@code{
+    List<NoteItem> notes;
+    protected async override Task OnInitializedAsync(){
+        notes = new List<NoteItem>()
+        {
+            new NoteItem
+            {
+                Title = "Todo",
+                Text = "Todos",
+                TimeToDo = new DateTime(2008, 3, 1, 7, 0, 0),
+                TimeOfCreate = DateTime.Now,
+                IsDone = false,
+                TypeOfTodo = "School"
+            },
+            new NoteItem
+            {
+                Title = "Todo",
+                Text = "Todos",
+                TimeToDo = new DateTime(2008, 3, 1, 7, 0, 0),
+                TimeOfCreate = DateTime.Now,
+                IsDone = false,
+                TypeOfTodo = "School"
+            },
+            new NoteItem
+            {
+                Title = "Todo",
+                Text = "Todos",
+                TimeToDo = new DateTime(2008, 3, 1, 7, 0, 0),
+                TimeOfCreate = DateTime.Now,
+                IsDone = false,
+                TypeOfTodo = "School"
+            }
+        };
+    }
+}
