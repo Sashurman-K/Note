@@ -1,23 +1,24 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Notes.Models.Configure;
 
 namespace Notes.Models.Contex
 {
+    //Класс в классе это сильное заявление, но работать не будет :)
     public class NoteDbContext : DbContext
     {
-        public class NotesDbContext : DbContext
+        private readonly string _connectionString;
+
+        public NoteDbContext(ServiceConfigure serviceConfigure)
         {
-            private readonly string _connectionString;
-
-            public NotesDbContext(ServiceConfigure serviceConfigure)
-            {
-                _connectionString = serviceConfigure.ConnectionStrings["DefaultConnection"];
-            }
-            protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            {
-                optionsBuilder.UseNpgsql(_connectionString);
-            }
-            public DbSet<NoteItem> NoteDbSet { get; set; }
-
+            _connectionString = serviceConfigure.ConnectionStrings;
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseNpgsql(_connectionString);
+        }
+
+        public DbSet<NoteDb> NoteDbSet { get; set; }
+
     }
 }

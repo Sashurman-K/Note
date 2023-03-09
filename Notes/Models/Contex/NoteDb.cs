@@ -3,29 +3,34 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Notes.Models.Contex
 {
+    //позволил немного хамства в чужом проекте и попереименовывал все :)
+    [Table("notes")]
     public class NoteDb
     {
-        [Table("notes")]
-        public class TodoItemDb
-        {
-            [Key]
-            [Column("id")]
-            public int Id { get; set; }
-            [Required]
-            [Column("title")]
-            public string? Title { get; set; }
-            [Column("texttodo")]
-            public string? Text { get; set; }
-            [Required]
-            [Column("timeofcreate")]
-            public DateTime TimeOfCreate { get; set; }
-            [Column("typeofnote")]
-            public string? TypeOfNote { get; set; }
-            [Column("timetodo")]
-            public DateTime TimeToTodo { get; set; }
-            [Required]
-            [Column("isdone")]
-            public bool IsDone { get; set; }
-        }
+        [Key]
+        [Column("id")]
+        public int Id { get; set; }
+
+        [Required]
+        [Column("title")]
+        public string Title { get; set; }
+
+        [Column("description")]
+        public string Description { get; set; }
+
+        [Required]
+        [Column("created_at")]
+        public DateTime CreatedAt { get; set; }
+
+        [Column("type")]
+        public string Type { get; set; }
+
+        [Column("execute_at")]
+        public DateTime Execute_at { get; set; }
+
+        [Required]
+        [Column("is_done")]
+        public bool IsDone { get; set; }
     }
 }
+
