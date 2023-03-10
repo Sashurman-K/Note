@@ -15,7 +15,7 @@
                 }
                 else
                     {
-                     @foreach (var item in notes.OrderBy(item => item.TimeToDo))
+                     @foreach (var item in notes.OrderBy(item => item.ExecuteAt))
                           {
                                     <tbody>
                                         <tr class="@(item.IsDone ? "table-success" : "table-white")">
@@ -25,17 +25,17 @@
                                                     <summary>
                                                         @item.Title
                                                     </summary>
-                                                    @if (!string.IsNullOrEmpty(item.Text))
+                                                    @if (!string.IsNullOrEmpty(item.Description))
                                                     {
-                                                        <p>@item.Text</p>
+                                                        <p>@item.Description</p>
                                                     }
 
                                                 </details>
                                                 @if (!item.IsDone)
                                                 {
-                                                    <div class="@ConvertTime.StyleTime(item.TimeToDo)">
+                                                    <div class="@ConvertTime.StyleTime(item.ExecuteAt)">
 
-                                                        @ConvertTime.TimeLeft(item.TimeToDo)
+                                                        @ConvertTime.TimeLeft(item.ExecuteAt)
 
                                                     </div>
                                                 }
@@ -45,7 +45,7 @@
                                                 <input type="checkbox" @bind="@item.IsDone" />
                                             </td>
                                             <td>
-                                                @item.TypeOfTodo
+                                                @item.Type
                                             </td>
                                             <td>
                                                 <button class="btn btn-danger" @onclick="(() => DeleteTodo(item))">Delete</button>

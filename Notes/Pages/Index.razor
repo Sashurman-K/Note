@@ -1,41 +1,17 @@
 ﻿@page "/"
+@namespace Notes.Pages
+@using Notes.Models.Contex
 
+@inject NoteDbContext DbContext
 
-<TableOfNotes notes="notes" />
+<TableOfNotes notes="_notes" />
 <NewNote/>
 
 @code{
-    List<NoteItem> notes;
-    protected async override Task OnInitializedAsync(){
-        notes = new List<NoteItem>()
-        {
-            new NoteItem
-            {
-                Title = "Todo",
-                Text = "Todos",
-                TimeToDo = new DateTime(2008, 3, 1, 7, 0, 0),
-                TimeOfCreate = DateTime.Now,
-                IsDone = false,
-                TypeOfTodo = "School"
-            },
-            new NoteItem
-            {
-                Title = "Todo",
-                Text = "Todos",
-                TimeToDo = new DateTime(2008, 3, 1, 7, 0, 0),
-                TimeOfCreate = DateTime.Now,
-                IsDone = false,
-                TypeOfTodo = "School"
-            },
-            new NoteItem
-            {
-                Title = "Todo",
-                Text = "Todos",
-                TimeToDo = new DateTime(2008, 3, 1, 7, 0, 0),
-                TimeOfCreate = DateTime.Now,
-                IsDone = false,
-                TypeOfTodo = "School"
-            }
-        };
+    private List<NoteItem> _notes { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        _notes = DbContext.NoteDbSet.Select(itemDb=>new NoteItem(itemDb)).ToList();
     }
 }
